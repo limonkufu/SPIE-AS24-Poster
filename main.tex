@@ -1,0 +1,246 @@
+\documentclass[a4paper]{spie}  %>>> use for US letter paper
+%\documentclass[a4paper]{spie}  %>>> use this instead for A4 paper
+%\documentclass[nocompress]{spie}  %>>> to avoid compression of citations
+
+\renewcommand{\baselinestretch}{1.0} % Change to 1.65 for double spacing
+ 
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\usepackage{todonotes}
+
+\title{Building a control system with cloud native technologies: leveraging kubernetes and tango-controls for CI/CD practices in SKA Observatory software}
+
+\author[a]{Ugur Yilmaz}
+\author[b]{Matteo Di Carlo}
+\author[a]{Piers Harding}
+\affil[a]{SKA Observatory, United Kingdom}
+\affil[b]{INAF, Italy}
+
+\authorinfo{Further author information: (Send correspondence to Ugur Yilmaz)\\
+Ugur Yilmaz: E-mail: ugur.yilmaz@skao.int\\
+Matteo Di Carlo: E-mail: matteo@oa-teramo.inaf.it\\
+Piers Harding: E-mail: piers.harding@skao.int \todo[inline]{check the addresses etc.}
+}
+
+% Option to view page numbers
+\pagestyle{empty} % change to \pagestyle{plain} for page numbers   
+\setcounter{page}{301} % Set start page numbering at e.g. 301
+ 
+\begin{document} 
+\maketitle
+
+\begin{abstract}
+
+ Building on the Square Kilometre Array's (SKA) Continuous Integration/Continuous Deployment (CI/CD) advancements, this paper focuses on the adoption and evolution of cloud-native technologies in the integration environment and subsystem-level orchestration. We present SKA's transformative journey employing Kubernetes, Integration environment and release process to streamline development workflows, automate integration testing, and ensure high-velocity deployments. The paper discusses strategies for dynamic environment provisioning, the seamless integration of independently developed subsystems, and the management of complex workflows with advanced CI/CD capabilities. We highlight the implementation of Kubernetes cluster integration environments with software's lifecycle management across multi-cloud environments, accentuating a robust, scalable, and transparent infrastructure. These cloud-native paradigms have not only optimised observatory operations but have also paved the way for enhanced collaboration, observability, and reliability in the era of large-scale astronomical projects.
+ 
+\end{abstract}
+
+% Include a list of keywords after the abstract 
+\keywords{Manuscript format, template, SPIE Proceedings, LaTeX \todo[inline]{update keywords}}
+
+\section{INTRODUCTION}
+\label{sec:intro}  % \label{} allows reference to this section
+
+The Square Kilometre Array Observatory (SKAO) is on a mission to build and operate cutting-edge radio telescopes, transforming our understanding of the universe. A key part of this mission involves the integration and orchestration of software subsystems using continuous integration and continuous deployment (CI/CD) methodologies.The adoption and evolution of continuous integration and continuous deployment (CI/CD) practices have become essential in managing the complex and large-scale software infrastructure required for SKAO's scientific objectives.
+
+As SKAO embarked on this journey, it faced numerous challenges typical of large-scale projects: the need for scalable and flexible software environments, the integration of diverse subsystems developed independently, and the necessity to automate extensive testing and deployment processes. Traditional approaches, relying on manual setups and virtual machines, proved inadequate in addressing these challenges. They were time-consuming, error-prone, and lacked the scalability required to support the SKAO's dynamic and evolving needs.
+
+The advent of cloud-native technologies, particularly Kubernetes, presented a transformative opportunity. Kubernetes, with its powerful orchestration capabilities, provided an ideal platform for abstracting and managing the complexities of compute, storage, and network resources. By leveraging Kubernetes, SKAO could streamline its development workflows, automate integration testing, and ensure high-velocity deployments, thereby significantly enhancing operational efficiency and reliability.
+
+This paper delves into SKAO's transformative journey towards adopting cloud-native CI/CD practices. It explores the strategic implementation of Kubernetes clusters, the orchestration of subsystem-level integrations, and the overall enhancement of the software lifecycle management. We present detailed insights into how dynamic environment provisioning and advanced CI/CD capabilities have been achieved, emphasizing the role of cloud-native paradigms in fostering a robust, scalable, and transparent infrastructure.
+
+Moreover, this paper highlights the continuous nature of this journey. Adopting cloud-native technologies is not a one-time effort but an ongoing process of adaptation and improvement. Through case studies and practical examples, we illustrate how SKAO has navigated the complexities of this transition, showcasing the benefits realized and the lessons learned along the way.
+
+In summary, SKAO's experience underscores the pivotal role of cloud-native technologies in modern software engineering, particularly in large-scale scientific projects. The shift to a cloud-native CI/CD framework has not only optimized SKAO's observatory operations but has also paved the way for enhanced collaboration, observability, and reliability. This paper aims to provide a comprehensive account of this journey, offering valuable insights and practical guidance for other organizations embarking on similar transitions.
+
+
+\section{The Journey in Cloud-Native CI/CD}
+
+SKAO's software infrastructure initially relied on traditional CI/CD methodologies, characterized by manual cluster setups and VM-based pipelines. These methods, while functional, presented significant limitations in scalability, efficiency, and error management. The rapidly evolving requirements of SKAO's projects necessitated a more dynamic and flexible approach, prompting the exploration of cloud-native solutions.
+
+The transition to a cloud-native CI/CD framework began with the adoption of Kubernetes, an open-source platform designed for automating deployment, scaling, and operations of application containers across clusters of hosts. This shift marked the beginning of a transformative journey, enabling SKAO to leverage Kubernetes for its powerful orchestration capabilities.
+
+Early Implementation Stages
+
+Manual Cluster Setup: The journey started with the manual setup of Kubernetes clusters, comprising 3 control plane nodes and 5 worker nodes. This initial setup provided a foundational understanding of Kubernetes' capabilities and limitations.
+Initial CI/CD Deployment: The first Minimum Viable Product (MVP) was deployed via continuous deployment (CD), showcasing the potential for automating deployment processes within the Kubernetes environment.
+Integration and Automation
+
+Migrating CI/CD Pipelines: The next critical step was migrating existing CI/CD pipelines from VM/Shell runners into the Kubernetes cluster. This move facilitated better resource management and enhanced the scalability of the CI/CD processes.
+Logging and Monitoring: Centralizing logging and monitoring within Kubernetes containers allowed for more efficient tracking and analysis of system performance and issues, significantly improving observability.
+Advanced Capabilities and Enhancements
+
+Centralized Management: Implementing centralized logging and monitoring across multiple clusters ensured comprehensive oversight and streamlined operations.
+Automation of Software Development Lifecycle (SDLC): Automation extended to the entire SDLC for all projects, from code commit to deployment, enabling rapid iteration and deployment cycles.
+Dynamic Environment Provisioning: Automated provisioning and tear-down of environments based on CI/CD pipeline requirements allowed for efficient use of resources and facilitated faster testing and deployment cycles.
+Further Innovations
+
+ClusterAPI Integration: The integration of ClusterAPI enabled the creation and management of multiple Kubernetes clusters with ease, further enhancing the scalability and flexibility of the CI/CD framework.
+Cloud Transition and Repatriation: Temporary migration of all CI/CD processes to AWS demonstrated the portability and robustness of the cloud-native setup, followed by a seamless transition back to the original infrastructure.
+Key Achievements and Metrics
+The cloud-native transformation of SKAO's CI/CD processes has led to significant improvements in various operational metrics:
+
+Pipeline Runs: Over 24,000 pipeline runs in the last six months indicate a high level of automation and continuous integration activity.
+Dynamic Resource Usage: The dynamic usage of over 1,000 virtual CPUs reflects the system's ability to scale resources based on real-time demands.
+Deployment Efficiency: More than 1,500 deployments highlight the efficiency and reliability of the automated deployment processes.
+Benefits of Cloud-Native CI/CD
+The journey to a cloud-native CI/CD framework has yielded several key benefits:
+
+Early Detection and Fast Feedback: Continuous integration testing allows for the early detection of issues and provides rapid feedback to developers, reducing the time to resolve problems.
+Clear Separation of Responsibilities: Defined roles and responsibilities within the CI/CD pipeline ensure efficient management and clear accountability.
+Scalability and Flexibility: Kubernetes' hierarchical control structure and dynamic resource management capabilities enable the system to scale efficiently and handle complex workflows.
+Enhanced Collaboration and Observability: Improved monitoring and logging capabilities foster better collaboration among development teams and increase transparency in the deployment process.
+
+\section{Platform Layered View}
+
+The SKAO platform is structured into multiple layers, each designed to handle specific aspects of the CI/CD process, from infrastructure management to application deployment. This layered approach ensures a clear separation of concerns, allowing for better manageability, scalability, and flexibility. The primary layers include the infrastructure layer, orchestration layer, and application layer, each playing a crucial role in the overall system.
+
+Infrastructure Layer
+At the base of the platform is the infrastructure layer, responsible for providing the foundational compute, storage, and network resources necessary for running applications. This layer is abstracted through Kubernetes, allowing developers to focus on higher-level functionalities without being bogged down by hardware complexities. Key components of the infrastructure layer include:
+
+Compute Resources: Virtual machines and containerized environments that provide the necessary processing power for running applications and CI/CD pipelines.
+Storage Solutions: Persistent and ephemeral storage options to meet the varying data retention and performance requirements of different applications.
+Networking Capabilities: Advanced networking features that ensure seamless communication between containers, services, and external systems.
+Orchestration Layer
+The orchestration layer is the heart of the SKAO platform, built on Kubernetes. It provides powerful tools for managing the deployment, scaling, and operations of containerized applications. This layer abstracts the complexities of the underlying infrastructure, offering a cohesive and manageable interface for developers and operators. Key functionalities include:
+
+Resource Scheduling and Management: Kubernetes ensures efficient scheduling of compute resources, balancing load, and optimizing resource usage.
+Service Discovery and Load Balancing: Automatic detection and routing of services ensure high availability and reliability.
+Configuration Management: Helm charts and Kubernetes manifests are used to define and manage application configurations, allowing for consistent and repeatable deployments.
+Custom Operators: These are used to automate complex operational tasks and manage the lifecycle of specific applications, providing advanced capabilities tailored to the needs of SKAO.
+Application Layer
+The application layer comprises the actual software applications and services that run on top of the orchestrated infrastructure. This layer benefits from the abstractions and services provided by the underlying layers, enabling seamless integration and efficient operations. Key aspects of the application layer include:
+
+Decoupled Deployments: Applications are deployed as independent microservices or nested Helm charts, allowing for modular and flexible updates.
+Runtime Configuration Injection: Dynamic configuration management at runtime ensures that applications can adapt to changing conditions and requirements without downtime.
+Operational Lifecycle Management: Continuous monitoring, logging, and observability tools are integrated into the application lifecycle, providing insights and ensuring operational stability.
+Benefits of the Layered Approach
+The layered architecture of the SKAO platform offers several significant advantages:
+
+Scalability: Each layer can scale independently, allowing for efficient resource management and handling of large-scale operations.
+Flexibility: Modular components and decoupled deployments enable rapid iteration and adaptation to changing requirements.
+Transparency: Clear separation of concerns and robust monitoring tools enhance visibility and accountability across the platform.
+Manageability: Abstractions provided by Kubernetes and custom operators simplify the management of complex workflows and operational tasks.
+Case Study: Multi-Cloud Integration
+A practical example of the platform's layered approach is the integration of multi-cloud environments. By leveraging Kubernetes' abstraction capabilities, SKAO has successfully managed and orchestrated resources across different cloud providers, ensuring portability and flexibility. This integration allows SKAO to utilize the best features of various cloud platforms while maintaining a unified and cohesive operational framework.
+
+\section{Continuous Integration and Continuous Deployment}
+
+Implementing cloud-native CI/CD practices involved several key strategies:
+
+Dynamic Environment Provisioning: Automated provisioning and tear-down of environments based on CI/CD pipeline needs, ensuring efficient resource utilisation and rapid testing cycles.
+
+Subsystem Integration: Seamless integration of independently developed subsystems using Kubernetes, allowing for decoupled deployments and nested Helm charts for configuration management.
+
+Advanced CI/CD Capabilities: Enhanced CI/CD pipelines with custom operators for operational lifecycle management, ensuring compatibility and stability across multi-cloud environments.
+
+Results and Impact
+
+The shift to cloud-native technologies has yielded significant benefits:
+
+Early Issue Detection \& Fast Feedback Loops: Continuous integration testing facilitates early detection of issues, providing quick feedback to developers.
+
+Clear Separation of Responsibilities: Defined roles and responsibilities across the CI/CD pipeline ensure streamlined operations and clear accountability.
+
+Scalability and Flexibility: The hierarchical control structure and dynamic resource management capabilities of Kubernetes have made it possible to scale operations efficiently.
+
+Enhanced Collaboration and Observability: Improved monitoring and logging capabilities have fostered better collaboration among development teams and increased transparency in the deployment process.
+
+Future Directions
+
+Looking ahead, SKAO aims to further stabilise and enhance its cloud-native CI/CD practices. Plans include:
+
+Gradual Stabilisation and Compatibility Testing: Ensuring robust compatibility and stability of CI/CD pipelines across different environments.
+
+Large Scale Changes and Adaptations: Continuously adapting and scaling the infrastructure to meet evolving project requirements and technological advancements.
+
+---
+
+Evolution of CI/CD Practices at SKAO
+Continuous Integration (CI) and Continuous Deployment (CD) have been central to the SKAO’s software development lifecycle, enabling rapid development, testing, and deployment of software applications. The evolution of CI/CD practices at SKAO reflects a journey towards greater automation, efficiency, and scalability, underpinned by the adoption of cloud-native technologies.
+
+Initial Setup and Challenges
+Initially, SKAO's CI/CD processes were manual and relied heavily on virtual machines (VMs) and shell runners. This setup posed several challenges:
+
+Manual Processes: High manual effort was required for setup, configuration, and maintenance, leading to increased risk of human error and inefficiencies.
+Limited Scalability: VM-based pipelines struggled to scale with increasing workloads, resulting in slower build and deployment times.
+Inconsistent Environments: Variability in environments across different stages of the pipeline led to inconsistencies and integration issues.
+Transition to Cloud-Native CI/CD
+Recognizing the limitations of traditional methods, SKAO transitioned to a cloud-native CI/CD framework, leveraging Kubernetes to automate and streamline the entire process. This transition involved several key steps and improvements:
+
+Cluster-Based CI/CD Pipelines
+
+Migration to Kubernetes: Moving CI/CD pipelines into Kubernetes clusters allowed for better resource management and scaling. Kubernetes' inherent capabilities for container orchestration provided a robust foundation for automating build, test, and deployment stages.
+Containerization of CI/CD Runners: By containerizing CI/CD runners, SKAO ensured consistency and repeatability across different pipeline stages, reducing environment-related issues.
+Automated Environment Provisioning
+
+Dynamic Provisioning: Implementing automated environment provisioning enabled on-demand creation and tear-down of testing and staging environments. This approach significantly reduced the time and effort required for environment setup, facilitating faster testing cycles.
+Scalability and Flexibility: Automated provisioning allowed the CI/CD system to scale dynamically based on workload demands, optimizing resource usage and improving efficiency.
+Enhanced Monitoring and Logging
+
+Centralized Logging and Monitoring: Integrating centralized logging and monitoring solutions within Kubernetes containers provided comprehensive visibility into pipeline operations. This integration allowed for real-time tracking of system performance, facilitating quicker detection and resolution of issues.
+Observability: Enhanced observability through detailed metrics and logs helped in maintaining the reliability and stability of the CI/CD pipelines.
+Advanced CI/CD Capabilities
+The adoption of cloud-native CI/CD practices has enabled SKAO to implement several advanced capabilities:
+
+Automated Testing and Quality Assurance
+
+Integration Testing: Automated integration testing ensures that independently developed subsystems work seamlessly together, reducing integration issues and improving software quality.
+Continuous Testing: Continuous testing at various stages of the CI/CD pipeline provides rapid feedback to developers, enabling early detection and resolution of bugs.
+Deployment Automation
+
+Rolling Updates and Canary Deployments: Kubernetes facilitates sophisticated deployment strategies such as rolling updates and canary deployments, minimizing downtime and reducing the risk of deployment failures.
+Rollback Mechanisms: Automated rollback mechanisms ensure that any issues detected post-deployment can be quickly addressed by reverting to a previous stable state.
+Custom Operators for Lifecycle Management
+
+Operational Lifecycle Management: Custom Kubernetes operators automate complex operational tasks and manage the lifecycle of specific applications, ensuring consistent and reliable operations.
+
+
+\section{Conclusion}
+
+ Conclusion
+
+ Summary of Results
+The journey of the Square Kilometre Array Observatory (SKAO) in adopting cloud-native CI/CD practices has been marked by significant achievements and transformative outcomes. Key results from this journey include:
+
+- **Enhanced Automation**: The integration of Kubernetes into the CI/CD pipeline has automated numerous processes, from environment provisioning to deployment, significantly reducing manual effort and errors.
+- **Scalability and Flexibility**: The ability to dynamically manage resources and scale operations based on real-time demands has improved efficiency and responsiveness to changing requirements.
+- **Improved Reliability and Stability**: Centralized logging, monitoring, and enhanced observability have led to more stable and reliable operations, with quicker detection and resolution of issues.
+- **Increased Deployment Velocity**: Over 24,000 pipeline runs and more than 1,500 deployments in the past six months highlight the high velocity and efficiency of the automated deployment processes.
+- **Seamless Integration**: The use of advanced CI/CD capabilities, such as automated testing and custom operators, has ensured seamless integration of independently developed subsystems, enhancing overall software quality.
+
+ Lessons Learned
+Throughout this journey, several important lessons have been learned:
+- **Continuous Improvement**: Adopting cloud-native technologies is an ongoing process that requires continuous adaptation and refinement to meet evolving needs and challenges.
+- **Collaboration and Transparency**: Improved collaboration and transparency, facilitated by enhanced monitoring and logging, are crucial for the success of large-scale projects.
+- **Resource Management**: Efficient resource management and dynamic provisioning are key to maintaining scalability and flexibility in a complex CI/CD environment.
+
+ Future Work
+Building on the success of the current cloud-native CI/CD framework, SKAO plans to focus on several areas for future enhancement:
+
+1. **Further Stabilization and Optimization**
+   - **Gradual Stabilization**: Continue to stabilize and optimize the CI/CD processes, ensuring robust compatibility and reliability across different environments.
+   - **Performance Tuning**: Implement performance tuning measures to further enhance the efficiency and speed of the CI/CD pipeline.
+
+2. **Advanced Deployment Strategies**
+   - **Enhanced Deployment Mechanisms**: Explore and implement more advanced deployment strategies, such as blue-green deployments and A/B testing, to further minimize downtime and deployment risks.
+   - **Machine Learning Integration**: Investigate the integration of machine learning models to predict and mitigate potential deployment issues before they occur.
+
+3. **Expanded Multi-Cloud Integration**
+   - **Multi-Cloud Strategy**: Continue to expand and refine the multi-cloud strategy, leveraging the best features of various cloud providers while maintaining a unified operational framework.
+   - **Cloud-Native Security**: Enhance security measures within the multi-cloud environment, ensuring data integrity and protection across all platforms.
+
+4. **Collaboration and Community Engagement**
+   - **Open Source Contributions**: Contribute to the open-source community by sharing tools, practices, and lessons learned from SKAO’s cloud-native journey.
+   - **Community Collaboration**: Foster collaboration with other organizations and research institutions to exchange knowledge and best practices, driving further innovation in cloud-native CI/CD practices.
+
+ Conclusion
+The adoption of cloud-native CI/CD practices at SKAO has been a transformative journey, yielding significant improvements in automation, scalability, reliability, and deployment velocity. By leveraging Kubernetes and other cloud-native technologies, SKAO has built a robust and efficient CI/CD framework that supports its ambitious scientific goals. As SKAO continues to evolve and enhance its CI/CD practices, it remains committed to pushing the boundaries of astronomical research and technological innovation, paving the way for future advancements in large-scale scientific projects. \cite{Alred03}
+
+% References
+\bibliography{report} % bibliography data in report.bib
+\bibliographystyle{spiebib} % makes bibtex use spiebib.bst
+
+\end{document} 
